@@ -12,8 +12,7 @@ pub fn day4() {
 
 fn get_range_pair_from_line(line: &str) -> (Range, Range) {
     let mut iter_linesplit = line.splitn(2, ",");
-    let (section1, section2) = (iter_linesplit.next().unwrap(),
-                                          iter_linesplit.next().unwrap());
+    let (section1, section2) = (iter_linesplit.next().unwrap(), iter_linesplit.next().unwrap());
 
     return (get_range_from_section(section1), get_range_from_section(section2))
 }
