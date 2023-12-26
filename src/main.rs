@@ -10,7 +10,7 @@ use crate::day2::day2;
 use crate::day3::day3;
 use crate::day4::{day4, day4_part2};
 use crate::day5::{day5, day5_part2};
-use crate::day6::day6;
+use crate::day6::{day6, day6_part2};
 
 fn main() {
     day1();
@@ -21,4 +21,5 @@ fn main() {
     day5();
     day5_part2();
     day6();
+    day6_part2();
 }
