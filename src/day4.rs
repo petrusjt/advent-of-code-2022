@@ -10,7 +10,7 @@ pub fn day4() {
     println!("Advent of Code 2022/4/1: {}", result.len());
 }
 
-pub fn day4part2() {
+pub fn day4_part2() {
     let content = fs::read_to_string("input-aoc-2022-4.txt")
         .expect("File should be readable");
     let result = content.split_terminator("\n")
