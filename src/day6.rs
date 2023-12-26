@@ -3,12 +3,12 @@ use std::fs;
 
 pub fn day6() {
     let content: String = fs::read_to_string("input-aoc-2022-6.txt").unwrap();
-    let alma: &str = content.as_str()
+    let datastream: &str = content.as_str()
         .split("\n")
         .filter(|&x| !x.is_empty())
         .collect::<Vec<&str>>()[0];
 
-    let chars = alma.chars().collect::<Vec<char>>();
+    let chars = datastream.chars().collect::<Vec<char>>();
     println!("Advent of Code 2022/6/1: {}", find_packet_start_index(chars))
 }
 
@@ -25,12 +25,12 @@ fn find_packet_start_index(chars: Vec<char>) -> i32 {
 
 pub fn day6_part2() {
     let content: String = fs::read_to_string("input-aoc-2022-6.txt").unwrap();
-    let alma: &str = content.as_str()
+    let datastream: &str = content.as_str()
         .split("\n")
         .filter(|&x| !x.is_empty())
         .collect::<Vec<&str>>()[0];
 
-    let chars = alma.chars().collect::<Vec<char>>();
+    let chars = datastream.chars().collect::<Vec<char>>();
     println!("Advent of Code 2022/6/2: {}", find_packet_start_index_part2(chars))
 }
 
