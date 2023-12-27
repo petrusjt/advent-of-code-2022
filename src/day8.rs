@@ -106,7 +106,7 @@ fn get_scenic_score_from_up(tree_map: &Vec<Vec<u32>>, y: &usize, x: &usize) -> u
     let tree_height = tree_map[*y][*x];
     for i in (0..*y).rev() {
         if tree_map[i][*x] >= tree_height {
-            return (*y - i) as u32;
+            return (y - i) as u32;
         }
     }
     return *y as u32;
