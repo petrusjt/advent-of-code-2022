@@ -49,6 +49,37 @@ impl Head {
     }
 }
 
+pub(super) struct Head2 {
+    position: Position,
+    pub(super) tails: Vec<Tail>
+}
+
+impl Head2 {
+    pub fn new() -> Box<Head2> {
+        return Box::from(
+            Head2 {
+                position: Position { x: 0, y: 0},
+                tails: vec![
+                    Tail::new(), // The original tail
+                    Tail::new(), Tail::new(), Tail::new(), Tail::new(),
+                    Tail::new(), Tail::new(), Tail::new(), Tail::new(),
+                ]
+            }
+        )
+    }
+
+    pub fn change_position(&mut self, direction: &str, count: u32) {
+        for _ in 0..count {
+            self.position = self.position.get_new_position(direction);
+            self.tails[0].on_head_position_change(self.position);
+            for i in 1..self.tails.len() {
+                let previous_tail_position = self.tails[i - 1].position;
+                self.tails[i].on_head_position_change(previous_tail_position)
+            }
+        }
+    }
+}
+
 pub(super) struct Tail {
     position: Position,
     pub(super) visited_positions: HashSet<Position>
