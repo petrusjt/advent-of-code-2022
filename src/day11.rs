@@ -23,7 +23,7 @@ fn get_monkey_business(content: String) -> i32 {
             // what I had to do:
             //  reason: for a value only 1 mutable reference can be present at any given time
             let mut new_monkeys = monkeys.clone();
-            monkeys[i].inspect_and_throw(&mut new_monkeys, true);
+            monkeys[i].inspect_and_throw(&mut new_monkeys, true, 3);
             let current_inspections_count = monkeys[i].inspection_count;
             monkeys = new_monkeys;
             monkeys[i].items.clear();
@@ -45,19 +45,17 @@ pub fn day11_part2() {
 }
 
 fn get_monkey_business_part2(content: String) -> i128 {
-    if true {
-        // The logic probably works, but I can't figure out a way to keep worry levels from overflowing i128
-        //  without altering the result
-        return -1;
-    }
     let mut monkeys: Vec<Monkey> = content.as_str().split("\n\n")
         .map(Monkey::from)
         .collect();
+    let modulo = monkeys.iter()
+        .map(|monkey| monkey.test.divisor)
+        .product::<i32>();
     let monkeys_count = monkeys.len();
     for _ in 0..10000 {
         for i in 0..monkeys_count {
             let mut new_monkeys = monkeys.clone();
-            monkeys[i].inspect_and_throw(&mut new_monkeys, false);
+            monkeys[i].inspect_and_throw(&mut new_monkeys, false, modulo);
             let current_inspections_count = monkeys[i].inspection_count;
             monkeys = new_monkeys;
             monkeys[i].items.clear();
