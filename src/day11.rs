@@ -46,7 +46,7 @@ pub fn day11_part2() {
 
 fn get_monkey_business_part2(content: String) -> i128 {
     if true {
-        // The logic probably works, but I can't figure out a way to keep worry levels in a manageable integer size
+        // The logic probably works, but I can't figure out a way to keep worry levels from overflowing i128
         //  without altering the result
         return -1;
     }
