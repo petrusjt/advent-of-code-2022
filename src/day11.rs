@@ -17,6 +17,11 @@ fn get_monkey_business(content: String) -> i32 {
     let monkeys_count = monkeys.len();
     for _ in 0..20 {
         for i in 0..monkeys_count {
+            // what I wanted:
+            // monkeys[i].inspect_and_throw(&mut monkeys, true);
+
+            // what I had to do:
+            //  reason: for a value only 1 mutable reference can be present at any given time
             let mut new_monkeys = monkeys.clone();
             monkeys[i].inspect_and_throw(&mut new_monkeys, true);
             let current_inspections_count = monkeys[i].inspection_count;
