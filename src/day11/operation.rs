@@ -23,9 +23,9 @@ impl Operation {
         }
     }
 
-    pub fn apply(&self, value: &i32) -> i32 {
+    pub fn apply(&self, value: &i128) -> i128 {
         return if self.operand2.is_some() {
-            let operand2_unwrapped = self.operand2.unwrap();
+            let operand2_unwrapped = i128::from(self.operand2.unwrap());
             match self.operation_type {
                 Add => value + operand2_unwrapped,
                 Multiply => value * operand2_unwrapped

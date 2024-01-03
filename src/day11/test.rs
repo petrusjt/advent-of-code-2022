@@ -2,7 +2,7 @@ use regex::Regex;
 
 #[derive(Clone)]
 pub(super) struct Test {
-    divisor: i32,
+    pub(super) divisor: i32,
     true_branch: i32,
     false_branch: i32
 }
@@ -16,8 +16,8 @@ impl Test {
         };
     }
 
-    pub fn apply(&self, value: &i32) -> i32 {
-        return if value % self.divisor == 0 {
+    pub fn apply(&self, value: &i128) -> i32 {
+        return if value % i128::from(self.divisor) == 0 {
             self.true_branch
         } else {
             self.false_branch
