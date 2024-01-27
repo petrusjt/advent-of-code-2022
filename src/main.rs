@@ -8,9 +8,11 @@ mod day8;
 mod day9;
 mod day10;
 mod day11;
+mod day12;
 
 use crate::day10::{day10, day10_part2};
 use crate::day11::{day11, day11_part2};
+use crate::day12::day12;
 use crate::day1::day1;
 use crate::day2::day2;
 use crate::day3::day3;
@@ -38,4 +40,5 @@ fn main() {
     day10_part2();
     day11();
     day11_part2();
+    day12();
 }
