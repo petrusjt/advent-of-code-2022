@@ -54,6 +54,10 @@ pub fn day12() {
 
 fn get_shortest_path(heightmap: Vec<Vec<char>>) -> i32 {
     let starting_position = get_start_position(&heightmap, 'S').expect("Starting point: ");
+    return bfs(heightmap, starting_position);
+}
+
+fn bfs(heightmap: Vec<Vec<char>>, starting_position: Position) -> i32 {
     let mut to_visit_positions: Vec<Position> = vec![];
     let mut visited_positions: Vec<Position> = vec![];
     to_visit_positions.push(starting_position);
