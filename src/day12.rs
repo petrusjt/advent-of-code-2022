@@ -2,6 +2,7 @@ use std::fs;
 use std::ptr::eq;
 
 #[derive(Debug)]
+#[derive(Copy, Clone)]
 struct Position {
     x: i32,
     y: i32,
@@ -54,10 +55,56 @@ pub fn day12() {
 
 fn get_shortest_path(heightmap: Vec<Vec<char>>) -> i32 {
     let starting_position = get_start_position(&heightmap, 'S').expect("Starting point: ");
-    return bfs(heightmap, starting_position);
+    return bfs(&heightmap, starting_position);
 }
 
-fn bfs(heightmap: Vec<Vec<char>>, starting_position: Position) -> i32 {
+fn get_start_position(heightmap: &Vec<Vec<char>>, searched_char: char) -> Result<Position, &str> {
+    let mut start_pos: Position = Position::default();
+    for i in 0..heightmap.len() {
+        for j in 0..heightmap[i].len() {
+            if heightmap[i][j] == searched_char {
+                start_pos = Position::of_tuple((j as i32, i as i32));
+                break;
+            }
+        }
+    }
+    return if start_pos == Position::default() {
+        Err("No starting point defined!")
+    } else {
+        Ok(start_pos)
+    };
+}
+
+pub fn day12_part2() {
+    let content: String = fs::read_to_string("input-aoc-2022-12.txt").unwrap();
+    let heightmap: Vec<Vec<char>> = content.split("\n")
+        .map(|line| line.chars().collect())
+        .collect();
+    println!("Advent of Code 2022/12/1: {}", get_shortest_path_part2(heightmap));
+}
+
+fn get_shortest_path_part2(heightmap: Vec<Vec<char>>) -> i32 {
+    let starting_positions = get_start_positions(&heightmap, vec!['S', 'a']);
+    return starting_positions.iter()
+        .map(|position: &Position| bfs(&heightmap, *position))
+        .filter(|&length| length != -1)
+        .min().unwrap();
+}
+
+fn get_start_positions(heightmap: &Vec<Vec<char>>, elevation: Vec<char>) -> Vec<Position> {
+    let mut start_positions: Vec<Position> = vec![];
+    for i in 0..heightmap.len() {
+        for j in 0..heightmap[i].len() {
+            if elevation.contains(&heightmap[i][j]) {
+                start_positions.push(Position::of_tuple((j as i32, i as i32)));
+                break;
+            }
+        }
+    }
+    return start_positions;
+}
+
+fn bfs(heightmap: &Vec<Vec<char>>, starting_position: Position) -> i32 {
     let mut to_visit_positions: Vec<Position> = vec![];
     let mut visited_positions: Vec<Position> = vec![];
     to_visit_positions.push(starting_position);
@@ -87,23 +134,6 @@ fn bfs(heightmap: Vec<Vec<char>>, starting_position: Position) -> i32 {
         visited_positions.push(current_pos);
     }
     return -1;
-}
-
-fn get_start_position(heightmap: &Vec<Vec<char>>, searched_char: char) -> Result<Position, &str> {
-    let mut start_pos: Position = Position::default();
-    for i in 0..heightmap.len() {
-        for j in 0..heightmap[i].len() {
-            if heightmap[i][j] == searched_char {
-                start_pos = Position::of_tuple((j as i32, i as i32));
-                break;
-            }
-        }
-    }
-    return if start_pos == Position::default() {
-        Err("No starting point defined!")
-    } else {
-        Ok(start_pos)
-    };
 }
 
 fn can_move(heightmap: &Vec<Vec<char>>, current_position: &Position, checked_position: &Position) -> bool {
